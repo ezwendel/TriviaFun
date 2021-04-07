@@ -1,0 +1,23 @@
+{
+  "name": "triviafun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezwendel/TriviaFun.git"
+  },
+  "author": "Elijah Wendel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ezwendel/TriviaFun/issues"
+  },
+  "homepage": "https://github.com/ezwendel/TriviaFun#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.6"
+  }
+}
