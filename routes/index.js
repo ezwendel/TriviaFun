@@ -1,6 +1,6 @@
 
-const testRoutes = require('./books')
-const userRoutes = require('./reviews')
+const testRoutes = require('./tests')
+const userRoutes = require('./users')
 
 const constructorMethod = (app) => {
     app.use('/tests', testRoutes)

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/ezwendel/TriviaFun#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "express": "^4.17.1",
+    "express-handlebars": "^5.3.0",
     "mongodb": "^3.6.6"
   }
 }

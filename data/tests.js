@@ -9,6 +9,19 @@ function hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
 } // from https://stackoverflow.com/questions/7376598/in-javascript-how-do-i-check-if-an-array-has-duplicate-values
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+  
+      // swap elements array[i] and array[j]
+      // we use "destructuring assignment" syntax to achieve that
+      // you'll find more details about that syntax in later chapters
+      // same can be written as:
+      // let t = array[i]; array[i] = array[j]; array[j] = t
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  } // https://javascript.info/task/shuffle
+
 async function addTest(uid, title, description) {
     if (!uid) throw 'Error: a user must be associated with creating the test.'
     if (!title) throw 'Error: test needs a title.'
@@ -80,9 +93,9 @@ async function addTestToUser(uid, tid) {
     user.tests.push(tid)
 
     const userCollection = await users()
-    console.log("here")
+    // console.log("here")
     const updateId = ObjectIdMongo(user._id)
-    console.log("here")
+    // console.log("here")
     const updateUserInfo = await userCollection.updateOne({ _id: updateId }, { $set: updatedUser })
     if (updateUserInfo.modifiedCount == 0) throw 'Error: could not update user with test.'
     return await usersJs.getUser(uid)
@@ -116,7 +129,7 @@ async function getTest(tid) {
     
     const testCollection = await tests()
     const testArr = await testCollection.find({}).toArray()
-    console.log(testArr)
+    // console.log(testArr)
 
     for (i of testArr) {
         if (i._id.toString() == tid) {
@@ -205,20 +218,29 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
     if (hasDuplicates(distractors)) { distractors = [... new Set(distractors)] } // remove duplicates
     let i = 0
     newDistractors = []
-    console.log(distractors)
+    // console.log(distractors)
     for (i = 0; i < distractors.length; i++) { 
-        console.log(typeof(distractors[i]) != 'string')
+        // console.log(typeof(distractors[i]) != 'string')
         if (typeof(distractors[i]) != 'string') throw 'Error: all values in distractors must be strings.'
         if (distractors[i].trim().length >= 1) { newDistractors.push(i) }
         distractors[i] = distractors[i].trim()
     }
     if (newDistractors.length == 0) throw 'Error: no distractors.'
 
+    answers = []
+    for (i of distractors) {
+        answers.push(i)
+    }
+    answers.push(correctAnswer)
+
+    shuffle(answers)
+
     newQuestion = {
         _id: ObjectID(),
         question: question.trim(),
         correctAnswer: correctAnswer.trim(),
-        distractors: distractors
+        distractors: distractors,
+        answers: answers
     }
 
     updatedTest = {
@@ -232,7 +254,7 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
 
     const testCollection = await tests()
     const updateId = ObjectIdMongo(tid)
-    console.log(updateId)
+    // console.log(updateId)
     const updateTestInfo = await testCollection.updateOne({ _id: updateId }, { $set: updatedTest })
     if (updateTestInfo.modifiedCount == 0) throw 'Error: could not update test with question.'
 
