@@ -41,7 +41,7 @@ async function addUser(name, email, password) {
     if (typeof(password) != 'string') throw 'Error: password must be a string.'
 
     if (!validEmail(email)) throw 'Error: email not in proper email format.'
-    if (!validPassword(password)) throw 'Error: password not in proper format.'
+    // if (!validPassword(password)) throw 'Error: password not in proper format.'
     if (name.trim().length == 0) throw 'Error: name is either an empty string or just whitespace.'
 
     let userCollection = await users()
@@ -74,7 +74,7 @@ async function updateUser(uid, name, email, password) {
     if (typeof(password) != 'string') throw 'Error: password must be a string.'
 
     if (!validEmail(email)) throw 'Error: email not in proper email format.'
-    if (!validPassword(password)) throw 'Error: password not in proper format.'
+    // if (!validPassword(password)) throw 'Error: password not in proper format.'
     if (name.trim().length == 0) throw 'Error: name is either an empty string or just whitespace.'
 
     let userCollection = await users()

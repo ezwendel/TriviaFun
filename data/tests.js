@@ -23,7 +23,7 @@ async function addTest(uid, title, description) {
     
     let user = null
     try {
-        user = usersJs.getUser(uid)
+        user =  await usersJs.getUser(uid)
     } catch {
         throw `Error: user with id ${uid} not found.`
     }
@@ -40,15 +40,52 @@ async function addTest(uid, title, description) {
     const insertTestInfo = await testCollection.insertOne(newTest)
     if (insertTestInfo.insertedCount == 0) throw 'Error: could not add test.'
     const newTestId = insertTestInfo.insertedId
-    
-    user.tests.push(newTestId.toString())
-    const userCollection = await users()
-    const updateId = ObjectIdMongo(user._id)
-    const updateUserInfo = await userCollection.updateOne({ _id: updateId }, { $set: user })
-    if (updateUserInfo.modifiedCount == 0) throw 'Error: could not update user with test.'
+    // console.log(user)
+    // user.tests.push(newTestId.toString())
+    // const userCollection = await users()
+    // console.log("here")
+    // const updateId = ObjectIdMongo(user._id)
+    // console.log("here")
+    // const updateUserInfo = await userCollection.updateOne({ _id: updateId }, { $set: user })
+    // if (updateUserInfo.modifiedCount == 0) throw 'Error: could not update user with test.'
+    // console.log("here")
+    newUser = await addTestToUser(uid, newTestId.toString())
 
-    const test = await getTest(newTestId)
+    const test = await getTest(newTestId.toString())
     return test
+}
+
+async function addTestToUser(uid, tid) {
+    const test = await getTest(tid)
+    if (test.creator !== uid) {
+        throw 'Error: uid not creator of test'
+    }
+
+    let user = null
+    try {
+        user =  await usersJs.getUser(uid)
+    } catch {
+        throw `Error: user with id ${uid} not found.`
+    }
+
+    updatedUser = {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        friends: user.friends, // fix
+        tests: user.tests,
+        scores: user.scores
+    }
+
+    user.tests.push(tid)
+
+    const userCollection = await users()
+    console.log("here")
+    const updateId = ObjectIdMongo(user._id)
+    console.log("here")
+    const updateUserInfo = await userCollection.updateOne({ _id: updateId }, { $set: updatedUser })
+    if (updateUserInfo.modifiedCount == 0) throw 'Error: could not update user with test.'
+    return await usersJs.getUser(uid)
 }
 
 async function getUserTests(uid) {
@@ -77,8 +114,9 @@ async function getTest(tid) {
     if (typeof(tid) != "string") throw 'Error: type of tid not string.'
     if (tid.trim().length == 0) throw 'Error: tid is either an empty string or just whitespace.'
     
-    const testCollection = await users()
+    const testCollection = await tests()
     const testArr = await testCollection.find({}).toArray()
+    console.log(testArr)
 
     for (i of testArr) {
         if (i._id.toString() == tid) {
@@ -122,8 +160,8 @@ async function updateTest(tid, title, description) {
     const updateTestInfo = await testCollection.updateOne({ _id: updateId }, { $set: updatedTest })
     if (updateTestInfo.modifiedCount == 0) throw 'Error: could not update test.'
 
-    const test = await getTest(tid)
-    return test
+    const newTest = await getTest(tid)
+    return newTest
 }
 
 async function deleteTest(tid) {
@@ -167,25 +205,35 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
     if (hasDuplicates(distractors)) { distractors = [... new Set(distractors)] } // remove duplicates
     let i = 0
     newDistractors = []
+    console.log(distractors)
     for (i = 0; i < distractors.length; i++) { 
-        if (typeof(i) != 'string') throw 'Error: all values in distractors must be strings.'
-        if (i.trim().length >= 1) { newDistractors.push(i) }
+        console.log(typeof(distractors[i]) != 'string')
+        if (typeof(distractors[i]) != 'string') throw 'Error: all values in distractors must be strings.'
+        if (distractors[i].trim().length >= 1) { newDistractors.push(i) }
         distractors[i] = distractors[i].trim()
     }
     if (newDistractors.length == 0) throw 'Error: no distractors.'
 
     newQuestion = {
         _id: ObjectID(),
-        question = question.trim(),
-        correctAnswer = correctAnswer.trim(),
-        distractors = distractors
+        question: question.trim(),
+        correctAnswer: correctAnswer.trim(),
+        distractors: distractors
     }
 
-    test.questions.push(newQuestion)
+    updatedTest = {
+        creator: test.creator,
+        title: test.title,
+        description: test.description,
+        questions: test.questions
+    }
+
+    updatedTest.questions.push(newQuestion)
 
     const testCollection = await tests()
     const updateId = ObjectIdMongo(tid)
-    const updateTestInfo = await testCollection.updateOne({ _id: updateId }, { $set: test })
+    console.log(updateId)
+    const updateTestInfo = await testCollection.updateOne({ _id: updateId }, { $set: updatedTest })
     if (updateTestInfo.modifiedCount == 0) throw 'Error: could not update test with question.'
 
     newQuestion._id = newQuestion._id.toString()
@@ -251,13 +299,18 @@ async function deleteQuestion(tid, qid) {
         }
     }
     if (!qflag) throw `Error: question with qid ${qid} not found.`
-    
-    test.questions = newQuestions
+
+    updatedTest = {
+        creator: test.creator,
+        title: test.title,
+        description: test.description,
+        questions: newQuestions
+    }
 
     let updateId = ObjectIdMongo(tid)
 
     let testCollection = await tests()
-    const updateInfo = await testCollection.updateOne({ _id: updateId }, { $set: newUser1 })
+    const updateInfo = await testCollection.updateOne({ _id: updateId }, { $set: updatedTest })
     if (updateInfo.modifiedCount == 0) throw 'Error: could not delete question from test.'
     
     return { "qid":qid, "deleted":true }
