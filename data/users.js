@@ -1,7 +1,7 @@
 const { ObjectID } = require('bson');
 ObjectIdMongo = require('mongodb').ObjectID;
 const mongoCollections = require('../config/mongoCollections');
-const { tests } = require('../settings/mongoCollections');
+const { tests } = require('../config/mongoCollections');
 const users = mongoCollections.users;
 
 function dateToMMDDYYYY(date){

@@ -1,0 +1,10 @@
+<main>
+    {{#each question}}
+    <form>
+        {{#each answer}}
+        <input type="radio" id="{{this}}" name="_id" value="{{this}}">
+        <label for="{{this}}">{{this}}</label><br>
+        {{/each}}
+    </form>
+    {{/each}}
+</main>
