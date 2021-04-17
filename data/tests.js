@@ -233,7 +233,7 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
     }
     answers.push(correctAnswer)
 
-    shuffle(answers)
+    shuffle(answers) // rework
 
     newQuestion = {
         _id: ObjectID(),

@@ -1,10 +1,10 @@
 <main>
-    <form action="/test/take/{{test._id}}" method="POST" class="take-test-form">
+    <form action="/tests/take/{{test._id}}" method="POST" class="take-test-form">
     {{#each test.questions}}
         <fieldset id="{{this.question}}">
         <p>{{this.question}}</p>
         {{#each this.answers}}
-            <input type="radio" id="{{this}}" name="{{../this._id}}_id" value="{{this}}">
+            <input type="radio" id="{{this}}" name="{{../this._id}}" value="{{this}}">
             <label for="{{this}}">{{this}}</label><br>
         {{/each}}
         </fieldset>
