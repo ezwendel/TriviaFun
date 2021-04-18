@@ -5,6 +5,23 @@ const data = require('../data/');
 const testData = data.tests
 const userData = data.users
 
+router.get('/make/', async (req, res) => {
+    res.render('make_test', { layout: "logged_in" })
+})
+
+router.post('/make/new_test', async (req, res) => {
+    console.log(req.body)
+    let body = req.body;
+    let quiz = null;
+    try {
+        quiz = await testData.addTestWithQuestions("607a81f56cd15b4234379183", body.title, body.description, body.question, body.correct_answer, body.distractors)
+    } catch (e) {
+        console.log(e)
+        res.status(404).json({error : e})
+    }
+    res.render('test_made', { layout: "logged_in", quiz: quiz })
+})
+
 router.get('/:id', async (req, res) => {
     let test
     try {

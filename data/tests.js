@@ -68,6 +68,24 @@ async function addTest(uid, title, description) {
     return test
 }
 
+async function addTestWithQuestions(uid, title, description, questions, answers, distractors) {
+    test = null;
+    try {
+        test = await addTest(uid, title, description)
+    } catch (e) {
+        throw e
+    }
+    for (let i = 0; i < questions.length; i++) {
+        try {
+            let distractorList = distractors[i].split(';')
+            let question = await addQuestion(test._id, questions[i], answers[i], distractorList)
+        } catch (e) {
+            throw e
+        }
+    }
+    return await getTest(test._id)
+}
+
 async function addTestToUser(uid, tid) {
     const test = await getTest(tid)
     if (test.creator !== uid) {
@@ -342,6 +360,7 @@ module.exports = {
     addTest,
     addQuestion,
     getTest,
+    addTestWithQuestions,
     updateTest,
     deleteTest,
     getUserTests,

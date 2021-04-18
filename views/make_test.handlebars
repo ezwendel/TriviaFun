@@ -1,0 +1,33 @@
+<form action="/tests/make/new_test" id="static-form" method="post">
+    <label for="title">
+        Title
+        <input type="title" class="test-title-input" id="title" name="title" placeholder="Test title"/>
+    </label>
+    <label for="description">
+        Description
+        <input type="description" class="test-description-input" id="description" name="description" placeholder="Test description"/>
+    </label>
+    <fieldset id="fieldset">
+    <legend id="legend">Questions</legend>
+    <div id="placeholder">
+        <div id="template">
+            <p>Question <input type ="text" size="25" name="question" /><br /></p>
+            <p>Correct Answer <input type ="text" size="25" name="correct_answer" /><br /></p>
+            <p>Distractors (separate with semicolons)<label for="distractors"></label></p>
+            <p><textarea name="distractors" cols="71" rows="5" id=""></textarea></p>
+        </div> <!-- template -->
+    </div> <!-- placeholder -->
+    <p><button type="button" name="Submit" onclick="Add();">Add new question</button></p>
+    </fieldset>
+    <script>
+        var _counter = 0;
+        function Add() {
+            _counter++;
+            var oClone = document.getElementById("template").cloneNode(true);
+            oClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(oClone); 
+        }
+    </script>
+    <div class="form-group hidden" id="add-question"></div>
+    <button type="submit" class="submit-button">Submit</button>
+</form>
