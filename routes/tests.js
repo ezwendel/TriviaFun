@@ -14,7 +14,7 @@ router.post('/make/new_test', async (req, res) => {
     let body = req.body;
     let quiz = null;
     try {
-        quiz = await testData.addTestWithQuestions("607a81f56cd15b4234379183", body.title, body.description, body.question, body.correct_answer, body.distractors)
+        quiz = await testData.addTestWithQuestions(body.title, body.description, body.question, body.correct_answer, body.distractors)
     } catch (e) {
         console.log(e)
         res.status(404).json({error : e})
@@ -22,7 +22,7 @@ router.post('/make/new_test', async (req, res) => {
     res.render('test_made', { layout: "logged_in", quiz: quiz })
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/take/:id', async (req, res) => {
     let test
     try {
         test = await testData.getTest(req.params.id)
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
     res.render('take_test', { layout: "logged_in", test: test })
 })
 
-router.post('/take/:id', async (req, res) => {
+router.post('/take/results/:id', async (req, res) => {
     console.log(req.params.id)
     let quiz = null;
     try {
@@ -47,14 +47,27 @@ router.post('/take/:id', async (req, res) => {
             score += 1;
         }
     }
-    let user = null;
+    // let user = null;
+    // try {
+    //     user = await userData.getUser(quiz.creator)
+    // } catch (e) {
+    //     res.status(404).json({error : e})
+    // }
+    result = { score: score, total: quiz.questions.length }
+    res.render("test_results", { layout: "logged_in", result: result, quiz: quiz})
+})
+
+router.get('/take/', async (req, res) => {
+    let tid = req.query.tid
+    console.log(tid)
+    let test
     try {
-        user = await userData.getUser(quiz.creator)
+        test = await testData.getTest(tid)
     } catch (e) {
         res.status(404).json({error : e})
     }
-    result = { score: score, total: quiz.questions.length }
-    res.render("test_results", { layout: "logged_in", result: result, quiz: quiz, user: user.name })
+    console.log(test)
+    res.render('take_test', { layout: "logged_in", test: test })
 })
 
 module.exports = router;

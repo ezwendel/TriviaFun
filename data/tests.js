@@ -22,27 +22,27 @@ function shuffle(array) {
     }
   } // https://javascript.info/task/shuffle
 
-async function addTest(uid, title, description) {
-    if (!uid) throw 'Error: a user must be associated with creating the test.'
+async function addTest(title, description) { // addTest(uid, title, description)
+    // if (!uid) throw 'Error: a user must be associated with creating the test.'
     if (!title) throw 'Error: test needs a title.'
     if (!description) { description = "" } // description not essential
 
-    if (typeof(uid) != 'string') throw 'Error: user id must be a string.'
+    // if (typeof(uid) != 'string') throw 'Error: user id must be a string.'
     if (typeof(title) != 'string') throw 'Error: title must be a string.' 
     if (typeof(description) != 'string') throw 'Error: description must be a string.'
 
     if (title.trim().length == 0) throw 'Error: title is either an empty string or just white space.'
     if (description.trim().length == 0) { description = "" }
     
-    let user = null
-    try {
-        user =  await usersJs.getUser(uid)
-    } catch {
-        throw `Error: user with id ${uid} not found.`
-    }
+    // let user = null
+    // try {
+    //     user =  await usersJs.getUser(uid)
+    // } catch {
+    //     throw `Error: user with id ${uid} not found.`
+    // }
 
     newTest = {
-        creator: uid,
+        // creator: uid,
         title: title.trim(),
         description: description.trim(),
         questions: []
@@ -53,25 +53,17 @@ async function addTest(uid, title, description) {
     const insertTestInfo = await testCollection.insertOne(newTest)
     if (insertTestInfo.insertedCount == 0) throw 'Error: could not add test.'
     const newTestId = insertTestInfo.insertedId
-    // console.log(user)
-    // user.tests.push(newTestId.toString())
-    // const userCollection = await users()
-    // console.log("here")
-    // const updateId = ObjectIdMongo(user._id)
-    // console.log("here")
-    // const updateUserInfo = await userCollection.updateOne({ _id: updateId }, { $set: user })
-    // if (updateUserInfo.modifiedCount == 0) throw 'Error: could not update user with test.'
-    // console.log("here")
-    newUser = await addTestToUser(uid, newTestId.toString())
+
+    // newUser = await addTestToUser(uid, newTestId.toString())
 
     const test = await getTest(newTestId.toString())
     return test
 }
 
-async function addTestWithQuestions(uid, title, description, questions, answers, distractors) {
+async function addTestWithQuestions(title, description, questions, answers, distractors) { // addTestWithQuestions(uid, title, description, questions, answers, distractors)
     test = null;
     try {
-        test = await addTest(uid, title, description)
+        test = await addTest(title, description) // addTest(uid, title, description)
     } catch (e) {
         throw e
     }

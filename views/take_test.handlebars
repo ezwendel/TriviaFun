@@ -1,5 +1,5 @@
 <main>
-    <form action="/tests/take/{{test._id}}" method="POST" class="take-test-form">
+    <form action="/tests/take/results/{{test._id}}" method="POST" class="take-test-form">
     {{#each test.questions}}
         <fieldset id="{{this.question}}">
         <p>{{this.question}}</p>

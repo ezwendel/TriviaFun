@@ -1,6 +1,6 @@
 {
     "mongoConfig": {
       "serverUrl": "mongodb://localhost:27017/",
-      "database": "triviaFunDB"
+      "database": "triviaFunDB_no_users"
     }
 }

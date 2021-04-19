@@ -6,6 +6,10 @@ const constructorMethod = (app) => {
     app.use('/tests', testRoutes)
     app.use('/users', userRoutes)
 
+    app.use('/', (req, res) => {
+        res.render('home', { layout:"logged_in" })
+    })
+
     app.use('*', (req, res) => {
         res.status(404).json({ error: 'Route not found' })
     })
