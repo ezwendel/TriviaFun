@@ -7,7 +7,7 @@ const constructorMethod = (app) => {
     app.use('/users', userRoutes)
 
     app.use('/', (req, res) => {
-        res.render('home', { layout:"logged_in" })
+        res.render('home', { title: "TrviaFun", layout:"logged_in" })
     })
 
     app.use('*', (req, res) => {

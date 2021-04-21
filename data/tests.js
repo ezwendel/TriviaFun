@@ -70,7 +70,9 @@ async function addTestWithQuestions(title, description, questions, answers, dist
     for (let i = 0; i < questions.length; i++) {
         try {
             let distractorList = distractors[i].split(';')
-            let question = await addQuestion(test._id, questions[i], answers[i], distractorList)
+            let cleanedList = distractorList.filter(Boolean);
+            console.log(cleanedList)
+            let question = await addQuestion(test._id, questions[i], answers[i], cleanedList)
         } catch (e) {
             throw e
         }
@@ -129,6 +131,13 @@ async function getUserTests(uid) {
         testArr.push(test)
     }
    
+    return testArr
+}
+
+async function getAllTests() {
+    const testCollection = await tests()
+    const testArr = await testCollection.find({}).toArray()
+    console.log(testArr)
     return testArr
 }
 
@@ -358,5 +367,6 @@ module.exports = {
     getUserTests,
     getAllTestQuestions,
     getQuestion,
-    deleteQuestion
+    deleteQuestion,
+    getAllTests
 }

@@ -1,14 +1,14 @@
 <form action="/tests/make/new_test" id="static-form" method="post">
+    <fieldset id="fieldset">
+    <legend id="legend">Make a Test</legend>
     <label for="title">
         Title
-        <input type="title" class="test-title-input" id="title" name="title" placeholder="Test title"/>
+        <input type="text" class="test-title-input" id="title" name="title" placeholder="Test title"/>
     </label>
     <label for="description">
         Description
-        <input type="description" class="test-description-input" id="description" name="description" placeholder="Test description"/>
+        <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description"/>
     </label>
-    <fieldset id="fieldset">
-    <legend id="legend">Questions</legend>
     <div id="placeholder">
         <div id="template">
             <p>Question <input type ="text" size="25" name="question" /><br /></p>
