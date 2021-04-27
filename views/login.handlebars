@@ -1,0 +1,36 @@
+
+<div class="form-box">
+    <div class="button-box">
+        <div id="above-btn"></div>
+        <button type="button" class="toggle-button" onclick="login()">Log In</button>
+        <button type="button" class="toggle-button" onclick="register()">Register</button>
+    </div>
+    <form id="login" action="/login/login" method="POST" class="input-grp">
+        <input name="username" type="text" class="input-field" placeholder="Username" required>
+        <input name="password" type="text" class="input-field" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Log in</button>
+    </form>
+    <form id="register" action="/login/register" method="POST" class="input-grp">
+        <input name="username" type="text" class="input-field" placeholder="Username" required>
+        <input name="email" type="email" class="input-field" placeholder="Email" required>
+        <input name="password" type="text" class="input-field" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Register</button>
+    </form>
+</div>
+<script>
+    var loginBtn = document.getElementById("login");
+    var registerBtn = document.getElementById("register");
+    var wholeBtn = document.getElementById("above-btn");
+
+    function register() {
+        loginBtn.style.left = "-400px";
+        registerBtn.style.left = "50px";
+        wholeBtn.style.left = "110px";
+    }
+
+    function login() {
+        loginBtn.style.left = "50px";
+        registerBtn.style.left = "450px";
+        wholeBtn.style.left = "0px";
+    }
+</script>

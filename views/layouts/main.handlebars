@@ -6,12 +6,32 @@
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body>
-    <header>
+    <div class="container">
+        <!-- Top navigation -->
+    <div class="topnav">
+
+    <!-- Centered link -->
+    <div class="topnav-centered">
+        <a href="/home" class="active">Home</a>
+    </div>
+
+    <!-- Left-aligned links (default) -->
+    <a href="/tests">Quizzes</a>
+
+    <!-- Right-aligned links -->
+    <div class="topnav-right">
+        <a href="/login">Log In/Sign Up</a>
+    </div>
+
+    </div> 
+    {{!-- <header>
         <ul class="navigation">
             <li class="nav-li"><a href="/home" class="nav-element">Home</a></li>
             <li class="nav-li"><a href="/tests" class="nav-element">All Tests</a></li>
+            <li class="nav-li"><a href="/login" class="nav-element">Log In/Register</a></li>
         </ul>
-    </header>
+    </header> --}}
     {{{body}}}
+    </div>
 </body>
 </html>

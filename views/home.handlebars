@@ -1,4 +1,4 @@
-<div class="container">
+{{!-- <div class="container"> --}}
 <div class="center">
     <h2 class="home-header">TriviaFun</h2>
 <form action="/tests/make" id="static-form" method="get">
@@ -6,10 +6,11 @@
 </form>
 <form action="/tests/take" id="static-form" method="get">
     <label for="tid">
+        <p class="input-label-text">OR</p>
         <p class="input-label-text">Take A Test</p>
-        <input type="text" class="test-title-input" id="tid" name="tid" placeholder="Test ID"/>
+        <input type="text" class="test-title-input-home" id="tid" name="tid" placeholder="Test ID"/>
     </label>
     <button type="submit" class="submit-button">Find Test</button>
 </form>
 </div>
-</div>
+{{!-- </div> --}}

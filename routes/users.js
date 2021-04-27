@@ -6,6 +6,10 @@ const data = require('../data/');
 const testData = data.tests
 const userData = data.users
 
+router.get('/', async (req, res) => {
+    
+})
+
 router.get('/:id', async (req, res) => {
     
 })

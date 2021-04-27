@@ -3,6 +3,12 @@ ObjectIdMongo = require('mongodb').ObjectID;
 const mongoCollections = require('../config/mongoCollections');
 const { tests } = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const bcrypt = require('bcryptjs');
+const saltRounds = 12;
+
+async function hash_password(plaintextPassword) {
+    return await bcrypt.hash(plaintextPassword, saltRounds);
+  }
 
 function dateToMMDDYYYY(date){
     date = new Date(date);
@@ -46,13 +52,15 @@ async function addUser(name, email, password) {
 
     let userCollection = await users()
 
+    hashedPassword = await hash_password(password.trim())
+
     newUser = {
         name: name.trim(),
         email: email.trim(),
-        password: password.trim(),
+        password: hashedPassword,
         friends: [],
         tests: [],
-        scores: []
+        scores: {}
     }
 
     let insertInfo = await userCollection.insertOne(newUser)
@@ -85,7 +93,7 @@ async function updateUser(uid, name, email, password) {
         password: password.trim(),
         friends: [], // fix
         tests: [],
-        scores: []
+        scores: {}
     }
 
     let user
@@ -124,6 +132,41 @@ async function getUser(uid) {
         }
     }
     throw `Error: no users have the uid ${uid}.`
+}
+
+async function setScore(body) {
+    id = body.userId
+    tid = body.testId
+    score = body.score
+    if (!id) throw 'Error: uid not given.'
+    if (typeof(id) != "string") throw 'Error: type of uid not string.'
+    if (id.trim().length == 0) throw 'Error: uid is either an empty string or just whitespace.'
+    if (!tid) throw 'Error: tid not given.'
+    if (typeof(tid) != "string") throw 'Error: type of tid not string.'
+    if (tid.trim().length == 0) throw 'Error: tid is either an empty string or just whitespace.'
+    if (!score && score != 0) throw 'Error: score not given.'
+    if (typeof(score) != "number") throw 'Error: type of score not number.'
+
+    let user = null
+    try {
+        user = await getUser(id)
+    } catch (e) {
+        throw e
+    }
+
+    if (!(user.scores[tid] && user.scores[tid] > score)) { // only change score if higher than prev attempt
+        user.scores[tid] = score
+    }
+    delete user._id
+
+    const updateId = ObjectIdMongo(id)
+
+    const userCollection = await users()
+    console.log(user)
+    const updateInfo = await userCollection.updateOne({ _id: updateId }, { $set: user })
+    if (updateInfo.modifiedCount == 0) throw 'Error: could not update user.'
+    let changedUser = await getUser(id)
+    return changedUser
 }
 
 async function deleteUser(uid) {
@@ -229,5 +272,6 @@ module.exports = {
     getAllUsers,
     getUser,
     makeFollower,
-    deleteFollower
+    deleteFollower,
+    setScore
 }

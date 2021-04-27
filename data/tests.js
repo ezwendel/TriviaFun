@@ -22,27 +22,38 @@ function shuffle(array) {
     }
   } // https://javascript.info/task/shuffle
 
-async function addTest(title, description) { // addTest(uid, title, description)
-    // if (!uid) throw 'Error: a user must be associated with creating the test.'
+async function addTest(body) { // addTest(uid, title, description)
+    let uid = body.userId
+    let title = body.title
+    let description = body.description
+    let creatorFlag = true
+
+    if (!uid) {creatorFlag = false}
     if (!title) throw 'Error: test needs a title.'
     if (!description) { description = "" } // description not essential
 
-    // if (typeof(uid) != 'string') throw 'Error: user id must be a string.'
+    if (creatorFlag && typeof(uid) != 'string') throw 'Error: user id must be a string.'
     if (typeof(title) != 'string') throw 'Error: title must be a string.' 
     if (typeof(description) != 'string') throw 'Error: description must be a string.'
 
     if (title.trim().length == 0) throw 'Error: title is either an empty string or just white space.'
     if (description.trim().length == 0) { description = "" }
     
-    // let user = null
-    // try {
-    //     user =  await usersJs.getUser(uid)
-    // } catch {
-    //     throw `Error: user with id ${uid} not found.`
-    // }
+    let user = null
+    let creatorName = null
+    if (creatorFlag) {
+        try {
+            user =  await usersJs.getUser(uid)
+        } catch {
+            throw `Error: user with id ${uid} not found.`
+        }
+        creatorName = user.name
+    }
 
-    newTest = {
-        // creator: uid,
+    
+    let newTest = {
+        creator: uid,
+        creatorName: creatorName,
         title: title.trim(),
         description: description.trim(),
         questions: []
@@ -54,19 +65,30 @@ async function addTest(title, description) { // addTest(uid, title, description)
     if (insertTestInfo.insertedCount == 0) throw 'Error: could not add test.'
     const newTestId = insertTestInfo.insertedId
 
-    // newUser = await addTestToUser(uid, newTestId.toString())
+    if (creatorFlag)  {
+        let newUser = await addTestToUser(uid, newTestId.toString())
+    }
 
     const test = await getTest(newTestId.toString())
     return test
 }
 
-async function addTestWithQuestions(title, description, questions, answers, distractors) { // addTestWithQuestions(uid, title, description, questions, answers, distractors)
+async function addTestWithQuestions(body) { // addTestWithQuestions(uid, title, description, questions, answers, distractors)
+    let uid = body.userId
+    let title = body.title
+    let description = body.description
+    let questions = body.questions
+    let answers = body.answers
+    let distractors = body.distractors
+
     test = null;
     try {
-        test = await addTest(title, description) // addTest(uid, title, description)
+        test = await addTest({userId: uid, title: title, description: description}) // addTest(uid, title, description)
     } catch (e) {
         throw e
     }
+    console.log(questions)
+    console.log(questions.length)
     for (let i = 0; i < questions.length; i++) {
         try {
             let distractorList = distractors[i].split(';')
@@ -74,10 +96,14 @@ async function addTestWithQuestions(title, description, questions, answers, dist
             console.log(cleanedList)
             let question = await addQuestion(test._id, questions[i], answers[i], cleanedList)
         } catch (e) {
-            throw e
+            console.log(e)
         }
     }
-    return await getTest(test._id)
+    let theTest = await getTest(test._id)
+    if (theTest.questions.length == 0) {
+        throw 'Error: no questions were able to be added to the test.'
+    }
+    return theTest
 }
 
 async function addTestToUser(uid, tid) {

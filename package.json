@@ -19,8 +19,11 @@
   "homepage": "https://github.com/ezwendel/TriviaFun#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.0",
+    "express-session": "^1.17.1",
     "mongodb": "^3.6.6"
   }
 }

@@ -1,10 +1,17 @@
-<main>
-    <div class="container">
+<div class="center">
     <h2>All Tests</h2>
-    <ul>
     {{#each tests}}
-        <li><a href="/tests/take/{{this._id}}">{{this.title}}</a></li>
+        <p><a href="/tests/take/{{this._id}}">{{this.title}}</a></p>
+        {{#if this.description}}
+        <p>{{this.description}}</p>
+        {{else}}
+        <p>This test has no description</p>
+        {{/if}}
+        {{#if this.creatorName}}
+        <p>This test was created by {{this.creatorName}}</p>
+        {{else}}
+        <p>This test was created by a guest</p>
+        {{/if}}
     {{/each}}
     </ul>
-    </div>
-</main>
+</div>

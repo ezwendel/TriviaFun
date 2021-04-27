@@ -1,33 +1,37 @@
+<div class="center-test">
 <form action="/tests/make/new_test" id="static-form" method="post">
     <fieldset id="fieldset">
-    <legend id="legend">Make a Test</legend>
+    <h2 id="legend">Make a Test</h2>
     <label for="title">
-        Title
-        <input type="text" class="test-title-input" id="title" name="title" placeholder="Test title"/>
+        Title<br/>
+        <input type="text" class="test-title-input" id="title" name="title" placeholder="Test title"/><br/>
     </label>
     <label for="description">
-        Description
-        <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description"/>
+        Description<br/>
+        <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description"/><br/>
     </label>
     <div id="placeholder">
-        <div id="template">
-            <p>Question <input type ="text" size="25" name="question" /><br /></p>
-            <p>Correct Answer <input type ="text" size="25" name="correct_answer" /><br /></p>
-            <p>Distractors (separate with semicolons)<label for="distractors"></label></p>
-            <p><textarea name="distractors" cols="71" rows="5" id=""></textarea></p>
+        <div id="template">Question 1
+            <label for="question"><br/> <input type ="text" size="25" name="question" class="make-test-input" placeholder="Question"/><br /></label>
+            <label for="correct_answer">Correct Answer<br/> <input type ="text" size="25" name="correct_answer" class="make-test-input"/ placeholder="Answer"><br /></label>
+            <label for="distractors">Wrong Answers (separate with semicolons)<br/>
+            <textarea name="distractors" cols="36" rows="5" id=""></textarea></label>
         </div> <!-- template -->
     </div> <!-- placeholder -->
-    <p><button type="button" name="Submit" onclick="Add();">Add new question</button></p>
+    <p><button type="button" name="Submit" onclick="Add();" class="submit-button-test">Add new question</button></p>
     </fieldset>
     <script>
-        var _counter = 0;
+        var _counter = 1;
         function Add() {
             _counter++;
             var oClone = document.getElementById("template").cloneNode(true);
+            oClone.innerHTML = oClone.innerHTML.substring(10)
+            oClone.innerHTML = `Question ${_counter} ${oClone.innerHTML}` 
             oClone.id += (_counter + "");
             document.getElementById("placeholder").appendChild(oClone); 
         }
     </script>
     <div class="form-group hidden" id="add-question"></div>
-    <button type="submit" class="submit-button">Submit</button>
+    <button type="submit" class="submit-button-test">Submit</button>
 </form>
+</div>
