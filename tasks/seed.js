@@ -13,7 +13,7 @@ async function main() {
     let jack = await userData.addUser("jack", "jack@hotmail.com", "nicepassword")
     let child = await userData.addUser("child", "child@mail.com", "1234pass")
     // console.log("there")
-    let bio = await testData.addTest({title: "bio", description: "this is a bio test"})
+    let bio = await testData.addTest({userId: elijah._id, title: "bio", description: "this is a bio test"})
     let math = await testData.addTest({title: "math", description: "this is a math test"})
     let physics = await testData.addTest({title: "physics", description: "this is a physics test"})
     // addQuestion(tid, question, correctAnswer, distractors)

@@ -1,0 +1,16 @@
+<div class="center">
+    <h2>{{user.name}}</h2>
+    <p>{{user.name}}'s Tests</p>
+    {{#each user.tests}}
+        <p><a href="/tests/take/{{this._id}}">{{this.title}}</a> -
+        {{#if this.description}}
+        {{this.description}}
+        {{else}}
+        This test has no description
+        {{/if}}</p>
+    {{/each}}
+    <p>{{user.name}}'s Scores</p>
+    {{#each user.scores}}
+        <p><a href="/tests/take/{{this.id}}">{{this.title}}</a> - {{this.score}} / {{this.total}}</p>
+    {{/each}}
+</div>

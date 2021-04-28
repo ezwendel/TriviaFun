@@ -116,10 +116,11 @@
     height: 100%;
     width: 100%;
     position:fixed;
-    background-image: url(resources/lkrs2OZ.png);
+    background-image: url(resources/edgR3xV.png);
+    background-size:cover;
     /* background: #8d4e85; */
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 
   /* fieldset {
@@ -138,7 +139,7 @@
   } */
 
   .center {
-    height: 480px;
+    height: 600px;
     width: 240px;
     position: relative;
     margin: 6% auto;
@@ -158,7 +159,7 @@
   }
 
   .center-test {
-    height: 720px;
+    height: 660px;
     width: 480px;
     position: relative;
     margin: 6% auto;
@@ -170,6 +171,8 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     /* color:white; */
     color:black;
+    /* display:flex; */
+    /* transition-duration: .4s; */
   }
 
   .submit-button {
@@ -196,12 +199,13 @@
   }
 
   .err-button {
-    border-radius: 1%;
+    border-radius: 30px;
     background-color: white;
     color: black;
     border: 2px solid #3CAEB4; /* Green */
     transition-duration: 0.4s;
-    height: 30px;
+    height: 50px;
+    width: 100%;
   }
   
   .submit-button:hover {
@@ -246,6 +250,10 @@
     box-sizing: border-box;
   }
 
+  .input-label-text {
+    text-align: center;
+  }
+
   label p {
     text-align: center;
     /* color: white; */
@@ -264,6 +272,7 @@
   .home-header {
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:3rem;
     /* color: white; */
   }
 
@@ -373,4 +382,11 @@
 
   .take-test-form {
     color:black;
+  }
+
+  .normal-link {
+    color:lightskyblue;
+  }
+  .normal-link:visited {
+    color: lightyellow;
   }

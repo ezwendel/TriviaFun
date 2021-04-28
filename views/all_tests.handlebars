@@ -1,7 +1,7 @@
 <div class="center">
-    <h2>All Tests</h2>
+    <h2>All Quizzes</h2>
     {{#each tests}}
-        <p><a href="/tests/take/{{this._id}}">{{this.title}}</a></p>
+        <p><a href="/tests/take/{{this._id}}" class="normal-link">{{this.title}}</a></p>
         {{#if this.description}}
         <p>{{this.description}}</p>
         {{else}}
@@ -13,5 +13,4 @@
         <p>This test was created by a guest</p>
         {{/if}}
     {{/each}}
-    </ul>
 </div>

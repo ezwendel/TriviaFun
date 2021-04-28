@@ -8,7 +8,7 @@ const constructorMethod = (app) => {
     app.use('/login', loginRoutes)
     app.use('/logout', logoutRoutes)
     app.use('/tests', testRoutes)
-    app.use('/users', userRoutes)
+    app.use('/profile', userRoutes)
     
 
     app.use('/', (req, res) => {
