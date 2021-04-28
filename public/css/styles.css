@@ -390,3 +390,7 @@
   .normal-link:visited {
     color: lightyellow;
   }
+
+  .text-area-make {
+    resize: none;
+  }

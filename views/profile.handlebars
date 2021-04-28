@@ -2,7 +2,7 @@
     <h2>{{user.name}}</h2>
     <p>{{user.name}}'s Tests</p>
     {{#each user.tests}}
-        <p><a href="/tests/take/{{this._id}}">{{this.title}}</a> -
+        <p><a href="/tests/take/{{this._id}}" class="normal-link">{{this.title}}</a> -
         {{#if this.description}}
         {{this.description}}
         {{else}}
@@ -11,6 +11,6 @@
     {{/each}}
     <p>{{user.name}}'s Scores</p>
     {{#each user.scores}}
-        <p><a href="/tests/take/{{this.id}}">{{this.title}}</a> - {{this.score}} / {{this.total}}</p>
+        <p><a href="/tests/take/{{this.id}}" class="normal-link">{{this.title}}</a> - {{this.score}} / {{this.total}}</p>
     {{/each}}
 </div>
