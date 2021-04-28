@@ -394,3 +394,9 @@
   .text-area-make {
     resize: none;
   }
+
+  .questions {
+    border: 2px solid #3CAEB4;
+    padding: 5px;
+    background-color: #3CAEB4;
+  }

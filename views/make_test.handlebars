@@ -11,12 +11,13 @@
         <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description" required/><br/>
     </label>
     <div id="placeholder">
-        <div id="template">Question 1
+        <div id="template" class="questions">Question 1
             <label for="question"><br/> <input type ="text" size="25" name="question" class="make-test-input" placeholder="Question"/><br /></label>
             <label for="correct_answer">Correct Answer<br/> <input type ="text" size="25" name="correct_answer" class="make-test-input" placeholder="Answer"/><br /></label>
             <label for="distractors">Wrong Answers (separate with semicolons)<br/>
             <textarea name="distractors" cols="36" rows="5" id="" class="text-area-make"></textarea></label>
         </div> <!-- template -->
+        <div id="break"><br/></div>
     </div> <!-- placeholder -->
     <p><button type="button" name="Submit" onclick="Add();" class="submit-button-test">Add new question</button></p>
     </fieldset>
@@ -29,6 +30,9 @@
             oClone.innerHTML = `Question ${_counter} ${oClone.innerHTML}` 
             oClone.id += (_counter + "");
             document.getElementById("placeholder").appendChild(oClone); 
+            var brClone = document.getElementById("break").cloneNode(true);
+            brClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(brClone); 
         }
     </script>
     <div class="form-group hidden" id="add-question"></div>
