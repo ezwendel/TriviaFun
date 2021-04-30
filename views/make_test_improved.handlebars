@@ -1,0 +1,75 @@
+<div class="center-test">
+<form action="/tests/make/new_test" id="static-form" method="post">
+    <fieldset id="fieldset">
+    <h2 id="legend">Make a Test</h2>
+    <label for="title">
+        Title<br/>
+        <input type="text" class="test-title-input" id="title" name="title" placeholder="Test title" required/><br/>
+    </label>
+    <label for="description">
+        Description<br/>
+        <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description" required/><br/>
+    </label>
+    <div id="placeholder">
+        <fieldset id="mcTemplate" class="questions" hidden>Question 1
+            <label for="question"><br/> <input type ="text" size="25" name="question" class="make-test-input" placeholder="Question"/><br /></label>
+            <label for="correct_answer">Correct Answer<br/> <input type ="text" size="25" name="correct_answer" class="make-test-input" placeholder="Answer"/><br /></label>
+            <label for="distractors">Wrong Answers (separate with semicolons)<br/>
+            <textarea name="distractors" cols="36" rows="5" id="" class="text-area-make"></textarea></label>
+        </fieldset> <!-- template -->
+        <fieldset id="tfTemplate" class="questions" hidden>Question 1
+            <label for="question"><br/> <input type ="text" size="25" name="question" class="make-test-input" placeholder="Question"/><br /></label>
+            <label for="true">True<br/> <input type ="radio" name="true" class="make-test-input"/><br /></label>
+            <label for="false">False<br/> <input type ="radio" name="false" class="make-test-input"/><br /></label>
+        </fieldset> <!-- template -->
+        <div id="break"><br/></div>
+    </div> <!-- placeholder -->
+    <p><button type="button" name="mc" onclick="AddMC();" class="submit-button-test" id="mcbtn">Multiple Choice</button></p>
+    <p><button type="button" name="tf" onclick="AddTF();" class="submit-button-test" id="tfbtn">True/False</button></p>
+    <p><button type="button" name="Submit" onclick="Add();" class="submit-button-test">Add new question</button></p>
+    </fieldset>
+    <script>
+        var _counter = 0;
+        function AddMC() {
+            _counter++;
+            var oClone = document.getElementById("mcTemplate").cloneNode(true);
+            oClone.removeAttribute("hidden"); 
+            oClone.innerHTML = oClone.innerHTML.substring(10)
+            oClone.innerHTML = `Question ${_counter} ${oClone.innerHTML}` 
+            oClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(oClone);
+            var brClone = document.getElementById("break").cloneNode(true);
+            brClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(brClone);
+            var mcButton = document.getElementById("mcbtn")
+            var tfButton = document.getElementById("tfbtn")
+            mcButton.setAttribute("hidden", true);
+            tfButton.setAttribute("hidden", true);
+        }
+        function AddTF() {
+            _counter++;
+            var oClone = document.getElementById("tfTemplate").cloneNode(true);
+            oClone.removeAttribute("hidden"); 
+            oClone.innerHTML = oClone.innerHTML.substring(10)
+            oClone.innerHTML = `Question ${_counter} ${oClone.innerHTML}` 
+            oClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(oClone); 
+            var brClone = document.getElementById("break").cloneNode(true);
+            brClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(brClone);
+            var mcButton = document.getElementById("mcbtn")
+            var tfButton = document.getElementById("tfbtn")
+            mcButton.setAttribute("hidden", true);
+            tfButton.setAttribute("hidden", true);
+        }
+        function Add() {
+            var mcButton = document.getElementById("mcbtn")
+            var tfButton = document.getElementById("tfbtn")
+            mcButton.removeAttribute("hidden")
+            tfButton.removeAttribute("hidden")
+        }
+    </script>
+    <div class="form-group hidden" id="add-question"></div>
+    <button type="submit" class="submit-button-test">Submit</button>
+</form>
+</div>

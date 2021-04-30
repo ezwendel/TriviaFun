@@ -1,0 +1,50 @@
+<div class="center-test">
+<form action="/tests/make/new_test" id="static-form" method="post">
+    <fieldset id="fieldset">
+    <h2 id="legend">Make a Test</h2>
+    <label for="title">
+        Title<br/>
+        <input type="text" class="test-title-input" id="title" name="title" placeholder="Test title" required/><br/>
+    </label>
+    <label for="description">
+        Description<br/>
+        <input type="text" class="test-description-input" id="description" name="description" placeholder="Test description" required/><br/>
+    </label>
+    <div id="placeholder">
+        <div id="template" class="questions">Question 1
+            <label for="question"><br/> <input type ="text" size="25" name="question" class="make-test-input" placeholder="Question"/><br /></label>
+            <label for="correct_answer">Correct Answer<br/> <input type ="text" size="25" name="correct_answer" class="make-test-input" placeholder="Answer"/><br /></label>
+            <label for="distractor1">Wrong Answers (Not required to use all inputs, but must use at least one)<br/><input type ="text" size="25" name="distractor1" class="make-test-input" placeholder="Wrong Answer"/><br /></label>
+            <label for="distractor2"><input type ="text" size="25" name="distractor2" class="make-test-input" placeholder="Wrong Answer"/><br /></label>
+            <label for="distractor3"><input type ="text" size="25" name="distractor3" class="make-test-input" placeholder="Wrong Answer"/><br /></label>
+        </div> <!-- template -->
+        <div id="break"><br/></div>
+    </div> <!-- placeholder -->
+    <p><button type="button" name="addQuestion" onclick="Add();" class="submit-button-test">Add new question</button></p>
+    <p><button type="button" name="deleteQuestion" onclick="Delete();" class="submit-button-test">Delete last question</button></p>
+    </fieldset>
+    <script>
+        var _counter = 1;
+        function Add() {
+            _counter++;
+            var oClone = document.getElementById("template").cloneNode(true);
+            oClone.innerHTML = oClone.innerHTML.substring(10)
+            oClone.innerHTML = `Question ${_counter} ${oClone.innerHTML}` 
+            oClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(oClone); 
+            var brClone = document.getElementById("break").cloneNode(true);
+            brClone.id += (_counter + "");
+            document.getElementById("placeholder").appendChild(brClone); 
+        } 
+        function Delete() {
+            var oClone = document.getElementById(`template${_counter}`);
+            oClone.remove();
+            var brClone = document.getElementById(`break${_counter}`);
+            brClone.remove();
+            _counter--;
+        }
+    </script>
+    <div class="form-group hidden" id="add-question"></div>
+    <button type="submit" class="submit-button-test">Submit</button>
+</form>
+</div>

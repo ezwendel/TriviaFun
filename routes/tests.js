@@ -7,9 +7,9 @@ const userData = data.users
 
 router.get('/make/', async (req, res) => {
     if (req.session.AuthCookie) {
-        res.render('make_test', { title: "Make Test", layout: "logged_in" })
+        res.render('make_test_other', { title: "Make Test", layout: "logged_in" })
     } else {
-        res.render('make_test', { title: "Make Test" })
+        res.render('make_test_other', { title: "Make Test" })
     }
 })
 
@@ -21,7 +21,26 @@ router.post('/make/new_test', async (req, res) => {
     let description = body.description
     let questions = body.question
     let answers = body.correct_answer
-    let distractors = body.distractors
+    let distractor1 = body.distractor1
+    let distractor2 = body.distractor2
+    let distractor3 = body.distractor3
+
+    distractors = []
+    if (Array.isArray(distractor1)) {
+        for (let i = 0; i < distractor1.length; i++) {
+            let currentDistractors = []
+            if (distractor1[i] != '') { currentDistractors.push(distractor1[i]) }
+            if (distractor2[i] != '') { currentDistractors.push(distractor2[i]) }
+            if (distractor3[i] != '') { currentDistractors.push(distractor3[i]) }
+            distractors.push(currentDistractors)
+        }
+    } else {
+        if (distractor1 != '') { distractors.push(distractor1) }
+        if (distractor2 != '') { distractors.push(distractor2) }
+        if (distractor3 != '') { distractors.push(distractor3) }
+    }
+
+    console.log("distractors: ", distractors)
 
     if (typeof(questions) == "string") {
         questions = [questions]
@@ -53,6 +72,47 @@ router.post('/make/new_test', async (req, res) => {
         res.render('test_made', { title: titleStr, quiz: quiz })
     }
 })
+
+// router.post('/make/new_test', async (req, res) => {
+//     console.log(req.body)
+//     let body = req.body;
+//     let quiz = null;
+//     let title = body.title
+//     let description = body.description
+//     let questions = body.question
+//     let answers = body.correct_answer
+//     let distractors = body.distractors
+
+//     if (typeof(questions) == "string") {
+//         questions = [questions]
+//         answers = [answers]
+//         distractors = [distractors]
+//     }
+
+//     try {
+//         if (req.session.AuthCookie) {
+//             console.log({userId: req.session.AuthCookie.userId, title: title, description: description, questions: questions, answers: answers, distractors: distractors})
+//             quiz = await testData.addTestWithQuestions({userId: req.session.AuthCookie.userId, title: title, description: description, questions: questions, answers: answers, distractors: distractors})
+//         } else {
+//             console.log({title: title, description: description, questions: questions, answers: answers, distractors: distractors})
+//             quiz = await testData.addTestWithQuestions({title: title, description: description, questions: questions, answers: answers, distractors: distractors})
+//         }
+       
+//     } catch (e) {
+//         if (req.session.AuthCookie) {
+//             res.render('error', { title: "Error", layout: "logged_in", error : e})
+//         } else {
+//             res.render('error', { title: "Error", error : e})
+//         }
+//         return;
+//     }
+//     titleStr = `Made Test: ${quiz.title}`
+//     if (req.session.AuthCookie) {
+//         res.render('test_made', { title: titleStr, layout: "logged_in", quiz: quiz })
+//     } else {
+//         res.render('test_made', { title: titleStr, quiz: quiz })
+//     }
+// })
 
 router.get('/take/:id', async (req, res) => {
     let test

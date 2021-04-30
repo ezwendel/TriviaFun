@@ -91,10 +91,10 @@ async function addTestWithQuestions(body) { // addTestWithQuestions(uid, title, 
     console.log(questions.length)
     for (let i = 0; i < questions.length; i++) {
         try {
-            let distractorList = distractors[i].split(';')
-            let cleanedList = distractorList.filter(Boolean);
-            console.log(cleanedList)
-            let question = await addQuestion(test._id, questions[i], answers[i], cleanedList)
+            // let distractorList = distractors[i].split(';')
+            // let cleanedList = distractorList.filter(Boolean);
+            // console.log(cleanedList)
+            let question = await addQuestion(test._id, questions[i], answers[i], distractors[i])
         } catch (e) {
             console.log(e)
         }
@@ -266,6 +266,7 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
     // console.log(distractors)
     for (i = 0; i < distractors.length; i++) { 
         // console.log(typeof(distractors[i]) != 'string')
+        console.log(distractors[i])
         if (typeof(distractors[i]) != 'string') throw 'Error: all values in distractors must be strings.'
         if (distractors[i].trim().length >= 1) { newDistractors.push(i) }
         distractors[i] = distractors[i].trim()
