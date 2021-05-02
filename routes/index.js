@@ -13,9 +13,9 @@ const constructorMethod = (app) => {
 
     app.use('/', (req, res) => {
         if (req.session.AuthCookie) {
-            res.render('home', { title: "TrviaFun", layout:"logged_in" })
+            res.render('home', { title: "Study Buddy", layout:"logged_in" })
         } else {
-            res.render('home', { title: "TrviaFun", layout:"main" })
+            res.render('home', { title: "Study Buddy", layout:"main" })
         }
     })
 
