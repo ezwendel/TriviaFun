@@ -13,6 +13,14 @@ router.get('/make/', async (req, res) => {
     }
 })
 
+router.get('/find/', async (req, res) => {
+    if (req.session.AuthCookie) {
+        res.render('find_test', { title: "Find Test", layout: "logged_in" })
+    } else {
+        res.render('find_test', { title: "Find Test" })
+    }
+})
+
 router.post('/make/new_test', async (req, res) => {
     console.log(req.body)
     let body = req.body;
