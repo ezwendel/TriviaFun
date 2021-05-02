@@ -46,7 +46,7 @@ router.post('/login/', async (req, res) => {
         username: user.name
     } 
     req.session.AuthCookie = authCookieUser
-    res.render('home', {title: "Study Buddy", layout: "logged_in"})
+    res.render('home', {title: "StudyBuddy", layout: "logged_in"})
 })
 
 router.post('/register/', async (req, res) => {
@@ -77,7 +77,7 @@ router.post('/register/', async (req, res) => {
         username: newUser.name
     }
     req.session.AuthCookie = authCookieUser
-    res.render('home', { title: "Study Buddy", layout: "logged_in" })
+    res.render('home', { title: "StudyBuddy", layout: "logged_in" })
 })
 
 module.exports = router;

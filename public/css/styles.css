@@ -140,9 +140,10 @@
 
   .center {
     height: 600px;
-    width: 280px;
+    width: 480px;
     position: relative;
     margin: 6% auto;
+    text-align: center;
     background: transparent;
     padding: 5px;
     overflow-x: hidden;
@@ -183,7 +184,7 @@
     border: 2px solid #3CAEB4; /* Green */
     transition-duration: 0.4s;
     height: 50px;
-    width: 100%;
+    width: 50%;
   }
   
   .submit-button-test {
@@ -232,7 +233,7 @@
   }
 
   .test-title-input-home {
-    width: 100%;
+    width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -273,7 +274,7 @@
   .home-header {
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size:3rem;
+    font-size:5rem;
     /* color: white; */
   }
 
