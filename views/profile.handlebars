@@ -1,16 +1,16 @@
 <div class="center">
-    <h2>{{user.name}}</h2>
-    <p>{{user.name}}'s Tests</p>
+    <h1>User: {{user.name}}</h1>
+    <h2><u>{{user.name}}'s Tests:</u></h2>
     {{#each user.tests}}
-        <p><a href="/tests/take/{{this._id}}" class="normal-link">{{this.title}}</a> -
+        <h3><a href="/tests/take/{{this._id}}" class="normal-link">{{this.title}}</a> -
         {{#if this.description}}
         {{this.description}}
         {{else}}
         This test has no description
-        {{/if}}</p>
+        {{/if}}</h3>
     {{/each}}
-    <p>{{user.name}}'s Scores</p>
+    <h2><u>{{user.name}}'s Scores</u></h2>
     {{#each user.scores}}
-        <p><a href="/tests/take/{{this.id}}" class="normal-link">{{this.title}}</a> - {{this.score}} / {{this.total}}</p>
+        <h3><a href="/tests/take/{{this.id}}" class="normal-link">{{this.title}}</a> - {{this.score}} / {{this.total}}</h3>
     {{/each}}
 </div>
