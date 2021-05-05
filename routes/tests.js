@@ -199,7 +199,7 @@ router.get('/take/', async (req, res) => {
 router.get('/', async (req, res) => {
     let allTests = null;
     try {
-        allTests = await testData.getAllTests()
+        allTests = await testData.getAllTestsToDisplay()
     } catch (e) {
         if (req.session.AuthCookie) {
             res.render('error', { title: "Error", layout: "logged_in", error : e})

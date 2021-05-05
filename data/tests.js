@@ -167,6 +167,19 @@ async function getAllTests() {
     return testArr
 }
 
+async function getAllTestsToDisplay() {
+    const testCollection = await tests()
+    const testArr = await testCollection.find({}).toArray()
+    newTestArr = []
+    for (i of testArr) {
+        if (i.questions.length != 0) {
+            newTestArr.push(i)
+        }
+    }
+    console.log(newTestArr)
+    return newTestArr
+}
+
 async function getTest(tid) {
     if (!tid) throw 'Error: tid not given.'
     if (typeof(tid) != "string") throw 'Error: type of tid not string.'
@@ -230,8 +243,8 @@ async function deleteTest(tid) {
 
     const testCollection = await users()
 
-    const test = await testCollection.findOne({ _id: id })
-    if (test == null) throw `Error: No test found with id ${id}`
+    // const test = await testCollection.findOne({ _id: id })
+    // if (test == null) throw `Error: No test found with id ${id}`
     
     const deleteInfo = await testCollection.deleteOne({ _id: id })
     if (deleteInfo.deletedCount == 0) throw `Error: Couldn't delete test with tid ${id}`
@@ -395,5 +408,6 @@ module.exports = {
     getAllTestQuestions,
     getQuestion,
     deleteQuestion,
-    getAllTests
+    getAllTests,
+    getAllTestsToDisplay
 }
