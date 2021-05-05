@@ -3,7 +3,7 @@
     <h1 id="legend">{{test.title}}</h1>
     {{#each test.questions}}
         Question {{counter @index}}
-        <fieldset id="{{this.question}}">
+        <fieldset id="{{this._id}}">
         <p>{{this.question}}</p>
         {{#each this.answers}}
             <input type="radio" id="{{this}}" name="{{../this._id}}" value="{{this}}" required>
