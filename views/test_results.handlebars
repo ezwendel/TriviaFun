@@ -3,8 +3,13 @@
 <main>
     <p class="test-results">Results on {{quiz.title}}</p>
     <p class="test-results">{{result.score}} / {{result.total}}</p>
-    <p class="test-results"><a href="/tests/take/{{quiz._id}}" class="normal-link"><button class="submit-button">Retake Test</button></a></p>
-    <p class="test-results"><a href="/" class="normal-link"><button class="submit-button">Back to Home</button></a></p>
+    {{!-- <p class="test-results"><a href="/tests/take/{{quiz._id}}" class="normal-link"><button class="submit-button">Retake Test</button></a></p> --}}
+    <form action="/tests/take/{{quiz._id}}" method="get" class="test-results">
+        <button class="submit-button">Retake Test</button>
+    </form> <br>
+    <form action="/" method="get" class="test-results">
+        <button class="submit-button">Back to Home</button>
+    </form>
 </main>
 </div>
 </div>
