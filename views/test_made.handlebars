@@ -3,7 +3,9 @@
 <main>
     <p class="test-made">Your test has been made!</p>
     <p class="test-made">Copy the link below and share it with friends!</p>
-    <p class="test-made"><a href="/tests/take/{{quiz._id}}" class="normal-link"><button class="submit-button">View test</button></a></p>
+    <form style="display: inline" action="/tests/take/{{quiz._id}}" method="get" class="test-made">
+        <button class="submit-button">View test</button>
+    </form>
 </main>
 </div>
 </div>

@@ -1,13 +1,13 @@
 {{!-- <div class="container"> --}}
 <div class="center">
-<form action="/tests/take" id="static-form" method="get">
-    <label for="tid">
+<form action="/tests/take" method="get">
         <p class="input-label-text">Take a test by entering its test ID if you were given one.</p>
+    <label for="tid">
         <input type="text" class="test-title-input-home" id="tid" name="tid" placeholder="Test ID" required/>
     </label>
     <button type="submit" class="submit-button">Find Test</button>
 </form>
-<form action="/tests/" id="static-form" method="get">
+<form action="/tests/" method="get">
         <p class="input-label-text">OR</p>
     <button type="submit" class="submit-button">Browse Quizzes</button>
 </div>
