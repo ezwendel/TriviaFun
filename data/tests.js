@@ -291,6 +291,7 @@ async function addQuestion(tid, question, correctAnswer, distractors) {
         answers.push(i)
     }
     answers.push(correctAnswer)
+    if (hasDuplicates(answers)) throw 'Error: at least two answers are the same'
 
     shuffle(answers) // rework
 
