@@ -116,6 +116,7 @@
     height: 100%;
     width: 100%;
     position:fixed;
+    background-color: #0e031d;
     background-image: url(resources/edgR3xV.png);
     background-size:cover;
     /* background: #8d4e85; */
