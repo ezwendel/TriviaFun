@@ -290,6 +290,8 @@
     width: 360px;
     position: relative;
     margin: 6% auto;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     /* background: #ffffff; */
     background: transparent;
     padding: 5px;

@@ -6,14 +6,14 @@
         <button type="button" class="toggle-button" onclick="register()">Register</button>
     </div>
     <form id="login" action="/login/login" method="POST" class="input-grp">
-        <input name="username" type="text" class="input-field" placeholder="Username" required>
-        <input name="password" type="password" class="input-field" placeholder="Password" required>
+        <label for="username_login">Username<input name="username" type="text" class="input-field" placeholder="Username" id="username_login" required></label>
+        <label for="pw_login">Password<input name="password" type="password" class="input-field" placeholder="Password" id="pw_login" required></label>
         <button type="submit" class="submit-btn">Log in</button>
     </form>
     <form id="register" action="/login/register" method="POST" class="input-grp">
-        <input name="username" type="text" class="input-field" placeholder="Username" required>
-        <input name="email" type="email" class="input-field" placeholder="Email" required>
-        <input name="password" type="password" class="input-field" placeholder="Password" required>
+        <label for="username_register">Username<input name="username" type="text" class="input-field" placeholder="Username" id="username_register" required></label>
+        <label for="email_register">Email<input name="email" type="email" class="input-field" placeholder="Email" id="email_register" required></label>
+        <label for="pw_register">Password<input name="password" type="password" class="input-field" placeholder="Password" id="pw_register" required></label>
         <button type="submit" class="submit-btn">Register</button>
     </form>
 </div>
